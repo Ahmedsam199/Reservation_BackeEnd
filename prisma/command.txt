@@ -1,0 +1,2 @@
+npx prisma migrate dev --name init // For migrate
+npx prisma generate // For generate Client Side And Other Stuff
