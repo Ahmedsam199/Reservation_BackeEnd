@@ -10,8 +10,21 @@ router.get('/Reservation',async(request: Request, response: Response, next: Next
 })
 
 router.post('/Reservation',async(request:Request,response:Response,next:NextFunction)=>{
-    const {FlightName,PassengerID,DatePuarcshed,FlightDate}=request.body
+    const{FlightName,
+
+PassengerID ,
+FlightNumber,
+Cost,
+isChildern ,
+TypeOfFlight,
+From  ,
+ToCountrt ,
+DatePuarcshed,
+FlightDate ,
+TripType,}=request.body
    let Passid:number=Number(PassengerID)
+   let FlightNumberInt:number=Number(FlightNumber)
+   let ConstInt:number=Number(Cost)
    let DateP=new Date(DatePuarcshed)
    let FlightD=new Date(FlightDate)
  await prisma.reservation.create({
@@ -19,8 +32,15 @@ router.post('/Reservation',async(request:Request,response:Response,next:NextFunc
     FlightName: FlightName,
     PassengerID: Passid,
     DatePuarcshed:DateP,
-    FlightDate:FlightD
-  },
+    FlightDate:FlightD,
+    From  :From,
+    ToCountrt:ToCountrt,
+    TripType:TripType,  
+    FlightNumber:FlightNumberInt,
+    TypeOfFlight:TypeOfFlight,
+    isChildern:isChildern,
+Cost:ConstInt,
+  }
 }).then((res)=>{response.send(res)}).catch((error)=>console.log(error))
 next()
 })
@@ -38,7 +58,7 @@ router.get('/Reservation/:id',async(request: Request, response: Response, next: 
     where:{
       id:id
     }
-  }).then((res)=>{response.send(res)})
+  }).then((res)=>{response.send(res)}).catch((err)=>{response.send(err)})
 })
 
 

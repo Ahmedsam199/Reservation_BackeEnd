@@ -5,7 +5,7 @@ const express=require('express')
 const jwt=require('jsonwebtoken')
 const router=express.Router();
 
-router.get('/login',async(request: Request, response: Response, next: NextFunction)=>{
+router.post('/login',async(request: Request, response: Response, next: NextFunction)=>{
   var id: number=Number(request.params.id);
   await prisma.users.findFirst({
     where:{
@@ -23,6 +23,9 @@ router.get('/login',async(request: Request, response: Response, next: NextFuncti
 
 
 response.json({ accessToken: token });
+    }).catch((err)=>{
+      response.send({message:"UserNotFound",
+    Status:500})
     })
 })
 

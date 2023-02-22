@@ -1,6 +1,7 @@
-
+import { PrismaClient } from "@prisma/client";
 import express from 'express';
 const auth=require('./middleware/auth')
+const prisma = new PrismaClient();
 const app=express();
 // use this instead of the body-parser
 app.use(function (req, res, next) {
@@ -21,8 +22,8 @@ app.use(express.json());
 const UserContoller=require('./Controller/UserContoller')
 const Reservation=require('./Controller/ReservationController')
 const Auth=require('./Controller/AuthController')
-app.use('/api',auth,UserContoller);
-app.use('/api',auth,Reservation)
+app.use('/api',UserContoller);
+app.use('/api',Reservation)
 app.use('/Auth',Auth)
-app.listen(3000)
 
+app.listen(3000)

@@ -6,22 +6,29 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Users {
   id          Int           @id @default(autoincrement())
   Username    String
-  Password    String        @db.LongText
+  Password    String
   Reservation Reservation[]
 }
 
 model Reservation {
   id            Int      @id @default(autoincrement())
   FlightName    String
-  Passenger     Users    @relation(fields: [PassengerID], references: [id])
+  Passenger     Users    @relation(fields: [PassengerID], references: [id], onDelete: Cascade)
   PassengerID   Int
+  FlightNumber  Int
+  Cost          Int
+  isChildern    Boolean
+  TypeOfFlight  String
+  From          String
+  ToCountrt     String
   DatePuarcshed DateTime
   FlightDate    DateTime
+  TripType      String
 }
