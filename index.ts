@@ -22,8 +22,8 @@ app.use(express.json());
 const UserContoller=require('./Controller/UserContoller')
 const Reservation=require('./Controller/ReservationController')
 const Auth=require('./Controller/AuthController')
-app.use('/api',UserContoller);
-app.use('/api',Reservation)
+app.use('/api',auth,UserContoller);
+app.use('/api',auth,Reservation)
 app.use('/Auth',Auth)
 
 app.listen(3000)

@@ -3,8 +3,13 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 const express=require('express')
 const router=express.Router();
-router.get('/Reservation',async(request: Request, response: Response, next: NextFunction)=>{
-    const reservation=await prisma.reservation.findMany()
+router.get('/Reservation/:series',async(request: Request, response: Response, next: NextFunction)=>{
+let series:number=Number(request.params.series)
+  const reservation=await prisma.reservation.findMany({
+      where:{
+        PassengerID:series
+      }
+    })
     response.send(reservation);
     next();
 })
