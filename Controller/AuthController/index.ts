@@ -8,7 +8,7 @@ const router=express.Router();
 router.post('/login',async(request: Request, response: Response, next: NextFunction)=>{
   var id: number=Number(request.params.id);
   await prisma.users.findFirst({
-    where:{
+  where:{
       Username:request.body.Username,
       Password:request.body.Password
     }
@@ -22,10 +22,10 @@ router.post('/login',async(request: Request, response: Response, next: NextFunct
   );
 
 
-response.json({ accessToken: token });
+response.send({ Status:true,accessToken: token });
     }).catch((err)=>{
       response.send({message:"UserNotFound",
-    Status:500})
+    Status:false})
     })
 })
 
