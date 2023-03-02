@@ -20,7 +20,7 @@ const {Username,Password} = request.body;
     Username: Username,
     Password: Password,
   },
-}).then((res)=>{response.send(res)})
+}).then((res)=>{response.send({Status:true,...res})})
 
 })
 // Delete User

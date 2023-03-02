@@ -1,13 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
+import jwt_decode from "jwt-decode";
+
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 const express=require('express')
 const router=express.Router();
+interface jwtpayload{
+id:number
+}
 router.get('/Reservation/:series',async(request: Request, response: Response, next: NextFunction)=>{
-let series:number=Number(request.params.series)
+let series=request.params.series
+const datas:jwtpayload= jwt_decode(series)
+const id:number=Number(datas.id);
   const reservation=await prisma.reservation.findMany({
       where:{
-        PassengerID:series
+        PassengerID:id
       }
     })
     response.send(reservation);
@@ -17,7 +24,7 @@ let series:number=Number(request.params.series)
 router.post('/Reservation',async(request:Request,response:Response,next:NextFunction)=>{
     const{FlightName,
 
-PassengerID ,
+PassengerID,
 FlightNumber,
 Cost,
 isChildern ,
@@ -25,7 +32,7 @@ TypeOfFlight,
 From  ,
 ToCountrt ,
 DatePuarcshed,
-FlightDate ,
+FlightDate,
 TripType,}=request.body
    let Passid:number=Number(PassengerID)
    let FlightNumberInt:number=Number(FlightNumber)
